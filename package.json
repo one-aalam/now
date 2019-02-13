@@ -1,0 +1,27 @@
+{
+  "name": "now",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "next build",
+    "dev": "next",
+    "now-build": "next build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/one-aalam/now.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/one-aalam/now/issues"
+  },
+  "homepage": "https://github.com/one-aalam/now#readme",
+  "dependencies": {
+    "isomorphic-fetch": "^2.2.1",
+    "next": "^8.0.1",
+    "react": "^16.8.1",
+    "react-dom": "^16.8.1"
+  }
+}
