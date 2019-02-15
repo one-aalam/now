@@ -1,11 +1,9 @@
 import Link from 'next/link';
 import fetch from 'isomorphic-fetch';
-import Header from "../components/header";
+import Layout from '../components/Layout';
 
-const AboutPage = ( { isServer, stars }) => (
-  <main>
-    <Header />
-    <section>
+const AboutPage = ({ isServer, stars }) => (
+  <Layout>
       <p>
         This is another page of the SSR example, you accessed it{" "}
         <strong>{ isServer ? "server" : "client" } side</strong>.
@@ -17,8 +15,7 @@ const AboutPage = ( { isServer, stars }) => (
       <Link href="/">
         <a>Go to Home</a>
       </Link>
-    </section>
-  </main>
+  </Layout>
 )
 
 AboutPage.getInitialProps = async ({ req }) => {

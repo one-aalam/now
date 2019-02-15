@@ -1,5 +1,7 @@
-export default ({ children }) => (
+const Footer = ({ children }) => (
   <footer>
     {children}
   </footer>
 );
+
+export default Footer;

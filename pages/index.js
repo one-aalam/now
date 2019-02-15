@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Layout from '../components/Layout';
 
-import Firebase, { FirebaseContext, config } from '../libs/firebase';
+import Firebase, { FirebaseContext } from '../libs/firebase';
 
 export default () => (
   <FirebaseContext.Provider value={new Firebase()}>

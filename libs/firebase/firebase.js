@@ -97,4 +97,3 @@ class Firebase {
 }
 
 export default Firebase;
-export { config }
