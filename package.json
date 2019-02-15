@@ -5,6 +5,7 @@
   "scripts": {
     "build": "next build",
     "dev": "next",
+    "start": "next start",
     "now-build": "next build"
   },
   "repository": {
@@ -19,9 +20,13 @@
   },
   "homepage": "https://github.com/one-aalam/now#readme",
   "dependencies": {
+    "firebase": "^5.8.2",
     "isomorphic-fetch": "^2.2.1",
     "next": "^8.0.1",
     "react": "^16.8.1",
     "react-dom": "^16.8.1"
+  },
+  "devDependencies": {
+    "now-env": "^3.1.0"
   }
 }

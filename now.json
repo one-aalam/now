@@ -2,5 +2,13 @@
   "version": 2,
   "builds": [
     { "src": "package.json", "use": "@now/next" }
-  ]
+  ],
+  "env": {
+    "SN_API_KEY": "@sn-api-key",
+    "SN_AUTH_DOMAIN": "@sn-auth-domain",
+    "SN_DATABASE_URL": "@sn-db-url",
+    "SN_PROJECT_ID": "@sn-prj-id",
+    "SN_STORAGE_BUCKET": "",
+    "SN_MESSAGING_SENDER_ID": "@sn-msg-sender-id"
+  }
 }
