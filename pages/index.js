@@ -4,6 +4,8 @@ import Layout from '../components/Layout';
 
 import { auth } from '../libs/firebase';
 import AuthUserContext from '../contexts/AuthUserContext';
+import { MessageProvider } from '../contexts/MessageContext';
+import { MessageList } from '../components/MessageList';
 
 
 export default () => {
@@ -18,6 +20,9 @@ export default () => {
           <div>logged in as { user.displayName } ! (<button onClick={() => auth.signOut() }>log out!</button></div> :
           <div onClick={() => auth.signInWithGoogle()}> I've access to Firebase and render something.</div>
         }
+        <MessageProvider>
+          <MessageList />
+        </MessageProvider>
     </Layout>
   )
 };
