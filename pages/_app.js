@@ -1,5 +1,6 @@
 import React from 'react'
 import App, { Container } from 'next/app'
+import { AuthProvider } from '../contexts/AuthUserContext';
 
 class NowApp extends App {
   static async getInitialProps({ Component, ctx }) {
@@ -17,7 +18,9 @@ class NowApp extends App {
 
     return (
       <Container>
-        <Component {...pageProps} />
+        <AuthProvider>
+          <Component {...pageProps} />
+        </AuthProvider>
       </Container>
     )
   }
