@@ -1,11 +1,13 @@
+const withSass = require('@zeit/next-sass');
 const { PHASE_DEVELOPMENT_SERVER } = require('next/constants');
+
 if (process.env.NODE_ENV !== 'production') {
   require('now-env')
 }
 
 module.exports = (phase, { defaultConfig }) => {
   if(phase === PHASE_DEVELOPMENT_SERVER) {
-    return {
+    return withSass({
       env: {
         customKey: 'value',
         SN_API_KEY: process.env.SN_API_KEY,
@@ -15,10 +17,10 @@ module.exports = (phase, { defaultConfig }) => {
         SN_STORAGE_BUCKET: process.env.SN_STORAGE_BUCKET,
         SN_MESSAGING_SENDER_ID: process.env.SN_MESSAGING_SENDER_ID
       }
-    }
+    })
   }
 
-  return {
+  return withSass({
     target: 'serverless'
-  }
+  });
 }
