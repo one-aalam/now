@@ -16,7 +16,7 @@ const Layout = ({ title, children }) => {
         <title> { title } </title>
       </Head>
       <Header />
-      <button onClick={toggleTheme}>Toggle Theme!</button>
+      <button className="btn-blue" onClick={toggleTheme}>Toggle Theme!</button>
       <Content>
         { children }
       </Content>

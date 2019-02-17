@@ -3,7 +3,7 @@ import App, { Container } from 'next/app'
 import { AuthProvider } from '../contexts/AuthUserContext';
 import { ThemeProvider } from '../contexts/ThemeContext';
 
-import '../static/style.scss';
+import '../static/style.css';
 
 class NowApp extends App {
   static async getInitialProps({ Component, ctx }) {

@@ -1,4 +1,4 @@
-const withSass = require('@zeit/next-sass');
+const withCSS = require('@zeit/next-css');
 const { PHASE_DEVELOPMENT_SERVER } = require('next/constants');
 
 if (process.env.NODE_ENV !== 'production') {
@@ -7,7 +7,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 module.exports = (phase, { defaultConfig }) => {
   if(phase === PHASE_DEVELOPMENT_SERVER) {
-    return withSass({
+    return withCSS({
       env: {
         customKey: 'value',
         SN_API_KEY: process.env.SN_API_KEY,
@@ -20,7 +20,7 @@ module.exports = (phase, { defaultConfig }) => {
     })
   }
 
-  return withSass({
+  return withCSS({
     target: 'serverless'
   });
 }
