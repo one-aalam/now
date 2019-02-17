@@ -20,7 +20,6 @@
   },
   "homepage": "https://github.com/one-aalam/now#readme",
   "dependencies": {
-    "@material/react-button": "^0.9.2",
     "firebase": "^5.8.2",
     "isomorphic-fetch": "^2.2.1",
     "next": "^8.0.1",

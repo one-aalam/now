@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import Button from '@material/react-button';
 import { useContext } from 'react';
 
 import Header from './Header';
@@ -16,15 +15,8 @@ const Layout = ({ title, children }) => {
       <Head>
         <title> { title } </title>
       </Head>
-      <Button
-          raised
-          className='button-alternate'
-          onClick={() => console.log('clicked!')}
-        >
-          Click Me!
-        </Button>
-      <button onClick={toggleTheme}>Toggle Theme!</button>
       <Header />
+      <button onClick={toggleTheme}>Toggle Theme!</button>
       <Content>
         { children }
       </Content>
