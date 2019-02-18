@@ -20,9 +20,10 @@
   },
   "homepage": "https://github.com/one-aalam/now#readme",
   "dependencies": {
-    "firebase": "^5.8.2",
+    "firebase": "^5.8.3",
     "isomorphic-fetch": "^2.2.1",
     "next": "^8.0.1",
+    "next-compose-plugins": "^2.1.1",
     "react": "^16.8.1",
     "react-dom": "^16.8.1"
   },

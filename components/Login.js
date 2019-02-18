@@ -9,7 +9,7 @@ export const Login = (props) => {
   return (
   <>
   <h1 className="font-hairline mb-6 text-center">Login to our Website</h1>
-  <div class="border-teal p-8 border-t-12 bg-white mb-6 rounded-lg shadow-lg">
+  <div className="border-teal p-8 border-t-12 bg-white mb-6 rounded-lg shadow-lg">
     <div className="mb-4">
       <label className="font-bold text-grey-darker block mb-2">Username or Email</label>
       <input type="text" className="block appearance-none w-full bg-white border border-grey-light hover:border-grey px-2 py-2 rounded shadow" placeholder="Your Username" />
@@ -38,7 +38,7 @@ export const Login = (props) => {
     </div>
   </div>
   <div className="text-center">
-    <p className="text-grey-dark text-sm">Don't have an account? <a href="#" class="no-underline text-blue font-bold">Create an Account</a>.</p>
+    <p className="text-grey-dark text-sm">Don't have an account? <a href="#" className="no-underline text-blue font-bold">Create an Account</a>.</p>
   </div>
   </>
 );

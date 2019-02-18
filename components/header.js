@@ -6,18 +6,18 @@ const Header = () => {
   return (
     <header className="flex justify-center items-center p-10">
       {/* <h1>Next.js Example on Now 2.0</h1> */}
-      <ul class="list-reset flex">
-        <li class="mr-6">
-          <a class="text-blue hover:text-blue-darker" href="#">link 1</a>
+      <ul className="list-reset flex">
+        <li className="mr-6">
+          <a className="text-blue hover:text-blue-darker" href="#">link 1</a>
         </li>
-        <li class="mr-6">
-          <a class="text-blue hover:text-blue-darker" href="#">link 2</a>
+        <li className="mr-6">
+          <a className="text-blue hover:text-blue-darker" href="#">link 2</a>
         </li>
-        <li class="mr-6">
-          <a class="text-blue hover:text-blue-darker" href="#" onClick={toggleTheme} >toggle theme</a>
+        <li className="mr-6">
+          <a className="text-blue hover:text-blue-darker" href="#" onClick={toggleTheme} >toggle theme</a>
         </li>
-        <li class="mr-6">
-          <a class="text-grey-light cursor-not-allowed" href="#">Disabled</a>
+        <li className="mr-6">
+          <a className="text-grey-light cursor-not-allowed" href="#">Disabled</a>
         </li>
       </ul>
     </header>
