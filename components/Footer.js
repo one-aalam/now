@@ -1,5 +1,5 @@
 const Footer = ({ children }) => (
-  <footer>
+  <footer className="flex-1">
     {children}
   </footer>
 );
