@@ -3,10 +3,13 @@ import Router from 'next/router'
 
 import { auth } from '../libs/firebase';
 import AuthUserContext from '../contexts/AuthUserContext';
+import { withAuthorization } from '../components/withAuthorization';
 
 import Layout from '../components/Layout';
 import { MessageProvider } from '../contexts/MessageContext';
 import { MessageList } from '../components/MessageList';
+
+const authCondition = (authUser) => !!authUser;
 
 const HomePage = () => {
   const user = useContext(AuthUserContext);
@@ -15,10 +18,9 @@ const HomePage = () => {
     <Layout>
       <div className="w-1/3 mt-20">
         Home
-        { user ?
-          <div>logged in as { user.displayName } ! (<button onClick={() => auth.signOut() }>log out!</button></div> :
-          <div onClick={() => auth.signInWithGoogle()}> Sign in with google! </div>
-        }
+        <MessageProvider>
+          <MessageList />
+        </MessageProvider>
       </div>
     </Layout>
   );
@@ -31,10 +33,6 @@ HomePage.getInitialProps = async ({ req, res }) => {
   }
 }
 
-export default HomePage;
-
-    // <MessageProvider>
-    //   <MessageList />
-    // </MessageProvider>
+export default withAuthorization(authCondition)(HomePage);
 
 

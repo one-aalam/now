@@ -28,7 +28,7 @@ export const SignInForm = ({ heading }) => {
       setCalling(true);
       auth.signInWithEmailAndPassword(username, password)
       .then((o) => {
-        Router.push(routes.LANDING)
+        Router.push(routes.HOME)
       })
       .catch(error => {
         setError(error)

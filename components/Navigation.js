@@ -1,6 +1,5 @@
 import { useContext } from 'react';
 import Link from 'next/link';
-import Router from 'next/router'
 import * as routes from '../constants/routes';
 import { AuthUserContext } from '../contexts/AuthUserContext';
 import { auth } from '../libs/firebase';
@@ -9,14 +8,15 @@ export const Navigation = () => {
   const user = useContext(AuthUserContext);
 
   return (
-    user ? <NavigationAuth /> : <NavigationNonAuth />
+    user ? <NavigationAuth user={user} /> : <NavigationNonAuth />
   );
 }
 
-
-
-const NavigationAuth = () => (
+const NavigationAuth = ({ user }) => (
   <ul className="list-reset flex">
+    <li className="mr-6">
+      Hi, { user.displayName }
+    </li>
     <li className="mr-6">
       <Link href={routes.LANDING}>
         <a className="text-blue hover:text-blue-darker">landing</a>
@@ -30,7 +30,6 @@ const NavigationAuth = () => (
     <li className="mr-6">
       <a className="text-grey-light hover:text-blue-darker" href="#" onClick={() => {
         auth.signOut();
-        Router.push(routes.LANDING);
       }}>log out</a>
     </li>
   </ul>
