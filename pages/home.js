@@ -27,11 +27,7 @@ const HomePage = () => {
 HomePage.getInitialProps = async ({ req, res }) => {
   const isServer = typeof window === "undefined";
   if(!isServer) {
-    alert('client');
-    const user = useContext(AuthUserContext);
-    if (!user) {
-      Router.push('/');
-    }
+    //
   }
 }
 
