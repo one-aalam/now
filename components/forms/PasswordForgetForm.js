@@ -6,8 +6,7 @@ import { auth } from '../../libs/firebase';
 import { Form, TextField } from './fields';
 
 const INITIAL_FORM_STATE = {
-  username: '',
-  password: '',
+  email: ''
 };
 
 const INITIAL_ERR_STATE = {
@@ -15,17 +14,17 @@ const INITIAL_ERR_STATE = {
   message: '',
 };
 
-export const SignInForm = ({ heading }) => {
+export const PasswordForgetForm = ({ heading }) => {
   const [ state, setState ] = useState(INITIAL_FORM_STATE);
   const [ error, setError ] = useState(INITIAL_ERR_STATE);
   const [ calling, setCalling ] = useState(false);
 
   const handleChange = evt => setState({ ...state, ...{[evt.target.name]: evt.target.value}});
 
-  const onSubmit = ({ username, password }) => {
-    if (username.trim() !== '' || password.trim() !== '') {
+  const onSubmit = ({ email }) => {
+    if (email.trim() !== '') {
       setCalling(true);
-      auth.signInWithEmailAndPassword(username, password)
+      auth.sendPasswordResetEmail(email)
       .then((o) => {
         console.log(o);
       })
@@ -39,30 +38,21 @@ export const SignInForm = ({ heading }) => {
   return (
   <>
     <Form heading={heading}>
-      <TextField name="username" label="Username or Email" placeholder="Your Username" value={state['username']} onChange={handleChange} />
-      <TextField name="password" type="password" label="Password" placeholder="Your password" value={state['password']} onChange={handleChange} />
+      <TextField name="email" type="email" label="Email" placeholder="Your email" value={state['email']} onChange={handleChange} />
       <div className="flex items-center justify-between">
         <button className="bg-teal-dark hover:bg-teal text-white font-bold py-2 px-4 rounded" onClick={ () => onSubmit(state) } >
-            { calling ? 'Logging in...' : 'Login' }
+            { calling ? 'Requesting a reset...' : 'Request a reset' }
         </button>
 
-        <Link href="/pw-forget">
+        <Link href="/signIn">
           <a className="no-underline inline-block align-baseline font-bold text-sm text-blue hover:text-blue-dark float-right" href="#">
-              Forgot Password?
+              Sign In?
           </a>
         </Link>
       </div>
       <div className="fb-error bg-red-lighest text-red text-sm pt-2 pb-2">
         { error.message && <p>{error.message}</p> }
       </div>
-      {/* <div className="flex justify-center items-center">
-        <button
-          className="bg-teal hover:bg-teal text-white font-bold py-2 px-4 rounded"
-          onClick={() => auth.signInWithGoogle()}
-          >
-            Sign in with Google
-        </button>
-      </div> */}
     </Form>
     <div className="text-center">
       <p className="text-grey-dark text-sm">Don't have an account?&nbsp;
