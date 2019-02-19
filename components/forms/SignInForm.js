@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
-
+import Router from 'next/router'
+import * as routes from '../../constants/routes';
 import { auth } from '../../libs/firebase';
 
 import { Form, TextField } from './fields';
@@ -27,7 +28,7 @@ export const SignInForm = ({ heading }) => {
       setCalling(true);
       auth.signInWithEmailAndPassword(username, password)
       .then((o) => {
-        console.log(o);
+        Router.push(routes.LANDING)
       })
       .catch(error => {
         setError(error)
