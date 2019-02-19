@@ -9,8 +9,8 @@ const Header = () => {
       {/* <h1>Next.js Example on Now 2.0</h1> */}
       <ul className="list-reset flex">
         <li className="mr-6">
-          <Link href="/about">
-            <a className="text-blue hover:text-blue-darker">about</a>
+          <Link href="/signIn">
+            <a className="text-blue hover:text-blue-darker">login</a>
           </Link>
         </li>
         <li className="mr-6">
