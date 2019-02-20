@@ -15,7 +15,7 @@ class NowDocument extends Document {
           <meta name="robots" content="noindex, nofollow" />
           <meta charSet="utf-8" />
         </Head>
-        <body className="now-body bg-grey-lighter h-screen font-sans">
+        <body className="now-body bg-grey-lighter h-screen font-sans leading-normal tracking-normal">
           <Main />
           <NextScript />
         </body>

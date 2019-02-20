@@ -7,7 +7,7 @@ import { Navigation } from './Navigation';
 const Header = () => {
   const { toggleTheme } = useContext(ThemeContext);
   return (
-    <header className="flex justify-center items-center p-10">
+    <header className="flex h-12 justify-center items-center">
       {/* <h1>Next.js Example on Now 2.0</h1> */}
       <Navigation />
       <ul className="list-reset flex">
