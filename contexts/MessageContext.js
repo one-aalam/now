@@ -15,10 +15,8 @@ const MessageProvider = ({ children }) => {
     }
   }
 
-  const onUpdate = (id) => {
-    db.updateMessage(id, 'new value').then(o => console.log(o));
-  }
-  const onDelete = (id) => db.deleteMessage(id).then(o => console.log(o));
+  const onUpdate = (id, payload) => db.updateMessage(id, payload)
+  const onDelete = (id) => db.deleteMessage(id)
 
   useEffect(() => {
     setLoading(true)
