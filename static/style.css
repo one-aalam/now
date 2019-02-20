@@ -5,6 +5,8 @@
 @tailwind components;
 @tailwind utilities;
 
+.h-screen-with
+
 
 :root {
   --color-primary: config('colors.black');
@@ -16,5 +18,19 @@ body {
 }
 
 #__next {
-  height: 100vh;
+  height: config('height.screen');
+}
+
+/* height related utilities */
+/* screen with toolbar */
+@responsive {
+  .h-swt {
+    height: calc(config('height.screen') - config('height.12'));
+  }
+}
+
+@responsive {
+  .h-cwt {
+    height: calc(config('height.full') - config('height.12'));
+  }
 }
