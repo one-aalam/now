@@ -8,6 +8,7 @@ import LayoutPrivate from '../components/LayoutPrivate';
 import { FolderProvider } from '../contexts/FolderContext';
 import { FolderList } from '../components/FolderList';
 import { NoteList } from '../components/NoteList';
+import Note from '../components/Note';
 
 const authCondition = (authUser) => !!authUser;
 
@@ -26,7 +27,7 @@ const HomePage = () => {
           <NoteList />
         </div>
         <div className="main-content flex-1 bg-grey-lightest pb-24 md:pb-5">
-          main content
+          <Note />
         </div>
       </div>
       </FolderProvider>
