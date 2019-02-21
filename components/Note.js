@@ -1,7 +1,12 @@
 import { useContext, useEffect, useState } from 'react';
 import ContentEditable from 'react-contenteditable';
+import sanitizeHtml from 'sanitize-html';
 import { FolderContext } from '../contexts/FolderContext';
 
+const SANITIZE_CONF = {
+  allowedTags: ["b", "i", "em", "strong", "a", "p", "h1"],
+  allowedAttributes: { a: ["href"] }
+};
 
 const Note = ({ children }) => {
   const { folders, loading, selected, selectedNote } = useContext(FolderContext);
@@ -9,6 +14,9 @@ const Note = ({ children }) => {
   const [ content, setContent ] = useState(null);
   const handleChange = evt => {
     setContent({ ...content, content: evt.target.value });
+  }
+  const handleChangeSanitized = evt => {
+    setContent({ ...content, content: sanitizeHtml(evt.target.value, SANITIZE_CONF) });
   }
 
   useEffect(() => {
@@ -33,6 +41,7 @@ const Note = ({ children }) => {
               html={content.content}
               disabled={false}
               onChange={handleChange}
+              onBlur={handleChangeSanitized}
             />
         </div>
         <div className="px-6 py-4">
