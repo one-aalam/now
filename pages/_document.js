@@ -14,6 +14,7 @@ class NowDocument extends Document {
           <meta name="description" content="firebase integration" />
           <meta name="robots" content="noindex, nofollow" />
           <meta charSet="utf-8" />
+          <link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet" />
         </Head>
         <body className="now-body bg-grey-lighter h-screen font-sans leading-normal tracking-normal">
           <Main />
@@ -21,7 +22,12 @@ class NowDocument extends Document {
         </body>
         <style global jsx>{`
           body {
+            height: 100%;
             margin: 0;
+            padding: 0;
+          }
+          * {
+            box-sizing: border-box;
           }
         `}
         </style>

@@ -195,6 +195,7 @@ module.exports = {
 
   fonts: {
     'sans': [
+      'Karla', // other beautiful fonts: Merriweather|Playfair+Display
       'system-ui',
       'BlinkMacSystemFont',
       '-apple-system',
