@@ -20,6 +20,7 @@ const POPPER_DEFAULT_RECT = {
 function EditButton(props) {
   return (
     <button
+      className="text-white"
       key={props.cmd}
       onMouseDown={evt => {
         evt.preventDefault(); // Avoids loosing focus from the editable area
@@ -117,7 +118,7 @@ const Note = ({ children }) => {
         <Popper referenceElement={virtualReferenceElement} placement="top" modifiers={{offset: { offset: '0,5' }}}>
           {({ ref, style, placement, arrowProps }) => (
               rect.width ?
-              <div ref={ref} style={style} data-placement={placement}>
+              <div className="pop" ref={ref} style={style} data-placement={placement}>
                 <EditButton cmd="italic" /><EditButton cmd="bold" />
                 <div ref={arrowProps.ref} style={arrowProps.style} />
               </div> : null
@@ -128,6 +129,18 @@ const Note = ({ children }) => {
           <span className="inline-block bg-grey-lighter rounded-full px-3 py-1 text-sm font-semibold text-grey-darker">#winter</span>
         </div>
       </div>
+      <style global jsx>{`
+          .pop {
+            background-image: linear-gradient(to bottom,rgba(49,49,47,.99),#262625);
+            background-repeat: repeat-x;
+            border-radius: 5px;
+            padding: 0 10px;
+            color: white;
+            line-height: 44px;
+            display: inline-block;
+          }
+        `}
+      </style>
       {/* { children } */}
     </section>
     : <div> Please select a folder and a note first </div>
