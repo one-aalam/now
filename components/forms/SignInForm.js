@@ -23,8 +23,14 @@ export const SignInForm = ({ heading }) => {
 
   const handleChange = evt => setState({ ...state, ...{[evt.target.name]: evt.target.value}});
 
-  const onSubmit = ({ username, password }) => {
-    if (username.trim() !== '' || password.trim() !== '') {
+  const isValid = () => {
+    const { username, password } = state;
+    return username.trim().length !== 0 && password.trim().length !== 0;
+  }
+
+  const onSubmit = () => {
+    if (isValid()) {
+      const { username, password } = state;
       setCalling(true);
       auth.signInWithEmailAndPassword(username, password)
       .then((o) => {
@@ -43,7 +49,7 @@ export const SignInForm = ({ heading }) => {
       <TextField name="username" label="Username or Email" placeholder="Your Username" value={state['username']} onChange={handleChange} />
       <TextField name="password" type="password" label="Password" placeholder="Your password" value={state['password']} onChange={handleChange} />
       <div className="flex items-center justify-between">
-        <button className="bg-teal-dark hover:bg-teal text-white font-bold py-2 px-4 rounded" onClick={ () => onSubmit(state) } >
+        <button className="bg-teal-dark hover:bg-teal text-white font-bold py-2 px-4 rounded" onClick={onSubmit} >
             { calling ? 'Logging in...' : 'Login' }
         </button>
 
