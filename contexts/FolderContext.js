@@ -30,6 +30,7 @@ const FolderProvider = ({ children }) => {
   const onSelectNote = (key) => setSelectedNote(key);
   const createFolder = (payload) => db.createFolder(payload);
   const addNote = (payload) => db.createNoteForFolder(selected, payload);
+  const updateNote = (payload) => db.updateNoteForFolder(selected, selectedNote, payload);
 
   useEffect(() => {
     setLoading(true)
@@ -55,6 +56,7 @@ const FolderProvider = ({ children }) => {
       selectedNote,
       onSelectNote,
       addNote,
+      updateNote,
       createFolder
     }}>
       { children }

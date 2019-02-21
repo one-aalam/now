@@ -34,7 +34,7 @@ function EditButton(props) {
 
 const Note = ({ children }) => {
   let noteRef;
-  const { folders, loading, selected, selectedNote } = useContext(FolderContext);
+  const { folders, loading, selected, selectedNote, updateNote } = useContext(FolderContext);
   const note = !loading && folders && selected && selectedNote ? folders[selected].notes[selectedNote] : null;
   const [ content, setContent ] = useState(null);
   const [ rect, setRect ] = useState(POPPER_DEFAULT_RECT);
@@ -94,13 +94,18 @@ const Note = ({ children }) => {
     noteRef = createRef();
   })
 
+  const persist = evt => {
+    evt.preventDefault();
+    updateNote(content);
+    return false;
+  }
+
   return (
     content ?
     <section className="note__panel" id="note__panel">
       <div>
-        {/* <img className="w-full" src="https://tailwindcss.com/img/card-top.jpg" alt="Sunset in the mountains" /> */}
         <div className="px-6 py-4">
-          <div className="font-bold text-xl mb-2">{ content.title }</div>
+          <div className="font-bold text-xl mb-2" onClick={persist}>{ content.title } </div>
             <ContentEditable
               innerRef={noteRef}
               style={{ outline: 0 }}
@@ -118,9 +123,9 @@ const Note = ({ children }) => {
         <Popper referenceElement={virtualReferenceElement} placement="top" modifiers={{offset: { offset: '0,5' }}}>
           {({ ref, style, placement, arrowProps }) => (
               rect.width ?
-              <div className="pop" ref={ref} style={style} data-placement={placement}>
-                <EditButton cmd="italic" /><EditButton cmd="bold" />
-                <div ref={arrowProps.ref} style={arrowProps.style} />
+              <div className="pop" role="tooltip" ref={ref} style={style} data-placement={placement}>
+                <EditButton cmd="italic" />&nbsp;<EditButton cmd="bold" />
+                <div className="x-arrow" ref={arrowProps.ref} style={arrowProps.style} />
               </div> : null
           )}
         </Popper>
@@ -138,6 +143,22 @@ const Note = ({ children }) => {
             color: white;
             line-height: 44px;
             display: inline-block;
+          }
+          .x-arrow {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            background-color: #262625;
+            transform: rotate(45deg);
+            z-index: -1;
+          }
+          [data-placement="top"] .x-arrow {
+            margin-bottom: -7px;
+            bottom: 0;
+          }
+          [data-placement="bottom"] .x-arrow {
+            margin-top: -7px;
+            top: 0;
           }
         `}
       </style>
