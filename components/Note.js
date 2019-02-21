@@ -4,9 +4,23 @@ import sanitizeHtml from 'sanitize-html';
 import { FolderContext } from '../contexts/FolderContext';
 
 const SANITIZE_CONF = {
-  allowedTags: ["b", "i", "em", "strong", "a", "p", "h1"],
+  allowedTags: ["b", "i", "em", "strong", "a", "p", "h1", "div"],
   allowedAttributes: { a: ["href"] }
 };
+
+function EditButton(props) {
+  return (
+    <button
+      key={props.cmd}
+      onMouseDown={evt => {
+        evt.preventDefault(); // Avoids loosing focus from the editable area
+        document.execCommand(props.cmd, false, props.arg); // Send the command to the browser
+      }}
+    >
+      {props.name || props.cmd}
+    </button>
+  );
+}
 
 const Note = ({ children }) => {
   const { folders, loading, selected, selectedNote } = useContext(FolderContext);
@@ -45,6 +59,8 @@ const Note = ({ children }) => {
             />
         </div>
         <div className="px-6 py-4">
+        <EditButton cmd="italic" />
+        <EditButton cmd="bold" />
           <span className="inline-block bg-grey-lighter rounded-full px-3 py-1 text-sm font-semibold text-grey-darker mr-2">#photography</span>
           <span className="inline-block bg-grey-lighter rounded-full px-3 py-1 text-sm font-semibold text-grey-darker mr-2">#travel</span>
           <span className="inline-block bg-grey-lighter rounded-full px-3 py-1 text-sm font-semibold text-grey-darker">#winter</span>
