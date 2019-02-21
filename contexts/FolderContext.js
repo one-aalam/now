@@ -7,22 +7,36 @@ const { Provider, Consumer } = FolderContext = createContext();
 
 const FolderProvider = ({ children }) => {
   const [ folders, setFolders ] = useState([]);
+  const [ selected, setSelected ] = useState('');
+  const [ selectedNote, setSelectedNote ] = useState('');
   const [ loading, setLoading ] = useState(false);
 
   const handleNewFolders = snapshot => {
     if (snapshot.exists()) {
-      setFolders(normalize(snapshot.val()));
+      setFolders(snapshot.val());
+    }
+  }
+
+  const initSelection = snapshot => {
+    if (snapshot.exists()) {
+      const [ selected ] = Object.keys(snapshot.val());
+      setSelected(selected);
     }
   }
 
   const onUpdate = (id, payload) => db.updateFolder(id, payload)
   const onDelete = (id) => db.deleteFolder(id)
+  const onSelect = (key) => setSelected(key);
+  const onSelectNote = (key) => setSelectedNote(key);
+  const createFolder = (payload) => db.createFolder(payload);
+  const addNote = (payload) => db.createNoteForFolder(selected, payload);
 
   useEffect(() => {
     setLoading(true)
     db.getFolders().then( snapshot => {
       setLoading(false);
       handleNewFolders(snapshot);
+      initSelection(snapshot);
     });
     db.subscribeFolders(handleNewFolders);
     return () => {
@@ -31,7 +45,18 @@ const FolderProvider = ({ children }) => {
   }, []);
 
   return (
-    <Provider value={{ folders, loading, onUpdate, onDelete }}>
+    <Provider value={{
+      folders,
+      loading,
+      selected,
+      onUpdate,
+      onDelete,
+      onSelect,
+      selectedNote,
+      onSelectNote,
+      addNote,
+      createFolder
+    }}>
       { children }
     </Provider>
   )
