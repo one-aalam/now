@@ -5,8 +5,8 @@ import sanitizeHtml from 'sanitize-html';
 import { FolderContext } from '../contexts/FolderContext';
 
 const SANITIZE_CONF = {
-  allowedTags: ["b", "i", "em", "strong", "a", "p", "h1", "div"],
-  allowedAttributes: { a: ["href"] }
+  allowedTags: [ 'b', 'i', 'em', 'strong', 'a', 'p', 'h1', 'div'],
+  allowedAttributes: { a: ['href'] }
 };
 const POPPER_DEFAULT_RECT = {
   top: 0,
@@ -17,7 +17,7 @@ const POPPER_DEFAULT_RECT = {
   height: 0
 };
 
-function EditButton(props) {
+function CmdButton(props) {
   return (
     <button
       className="text-white"
@@ -54,6 +54,10 @@ const Note = ({ children }) => {
   const handleChange = evt => {
     setContent({ ...content, content: evt.target.value });
   }
+  const handleTitleChange = evt => {
+    setContent({ ...content, title: evt.target.value });
+  }
+
   const handleChangeSanitized = evt => {
     setContent({ ...content, content: sanitizeHtml(evt.target.value, SANITIZE_CONF) });
   }
@@ -97,7 +101,7 @@ const Note = ({ children }) => {
 
   const persist = evt => {
     evt.preventDefault();
-    updateNote(content);
+    updateNote({ ...content, content: sanitizeHtml(content.content, SANITIZE_CONF)} );
     return false;
   }
 
@@ -106,34 +110,43 @@ const Note = ({ children }) => {
     <section className="note__panel" id="note__panel">
       <div>
         <div className="px-6 py-4">
-          <div className="font-bold text-xl mb-2" onClick={persist}>{ content.title } </div>
+          <h1 className="font-bold text-xxl mb-2" onClick={persist}>
+            <ContentEditable
+              style={{ outline: 0 }}
+              className="editable"
+              html={content.title}
+              onChange={handleTitleChange}
+              onBlur={persist}
+            />
+          </h1>
             <ContentEditable
               innerRef={noteRef}
               style={{ outline: 0 }}
               className="editable"
               html={content.content}
-              disabled={false}
               onChange={handleChange}
               onMouseUp={handleTextSelection}
-              // onKeyUp={handleTextSelection}
-              // onKeyDown={handleTextSelection}
-              // onBlur={handleChangeSanitized}
             />
         </div>
-        <div className="px-6 py-4">
         <Popper referenceElement={virtualReferenceElement} placement="top" modifiers={{offset: { offset: '0,5' }}}>
-          {({ ref, style, placement, arrowProps }) => (
-              rect.width ?
-              <div className="pop" role="tooltip" ref={ref} style={style} data-placement={placement}>
-                <EditButton cmd="italic" />&nbsp;<EditButton cmd="bold" />
-                <div className="x-arrow" ref={arrowProps.ref} style={arrowProps.style} />
-              </div> : null
-          )}
+            {({ ref, style, placement, arrowProps }) => (
+                rect.width ?
+                <div className="pop" role="tooltip" ref={ref} style={style} data-placement={placement}>
+                  <CmdButton cmd="italic" />
+                  <CmdButton cmd="bold" />
+                  {/* <CmdButton cmd="strikeThrough" />
+                  <CmdButton cmd="underline" />
+                  <CmdButton cmd="insertImage" />
+                  <CmdButton cmd="foreColor" />
+                  <CmdButton cmd="hiliteColor" />
+                  <CmdButton cmd="createLink" arg="http://google.in"/>
+                  <CmdButton cmd="insertOrderedList" name="ol" />
+                  <CmdButton cmd="insertUnorderedList" name="ul" />
+                  <CmdButton cmd="formatBlock" arg="h1" name="h1" /> */}
+                  <div className="x-arrow" ref={arrowProps.ref} style={arrowProps.style} />
+                </div> : null
+            )}
         </Popper>
-          <span className="inline-block bg-grey-lighter rounded-full px-3 py-1 text-sm font-semibold text-grey-darker mr-2">#photography</span>
-          <span className="inline-block bg-grey-lighter rounded-full px-3 py-1 text-sm font-semibold text-grey-darker mr-2">#travel</span>
-          <span className="inline-block bg-grey-lighter rounded-full px-3 py-1 text-sm font-semibold text-grey-darker">#winter</span>
-        </div>
       </div>
       <style global jsx>{`
           .pop {
