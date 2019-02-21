@@ -87,6 +87,7 @@ const Note = ({ children }) => {
         title: note.title ? note.title : '',
         content: note.content ? note.content : ''
       })
+      setRect(POPPER_DEFAULT_RECT);
     }
   }, [ note ])
 
