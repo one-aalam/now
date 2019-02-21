@@ -26,7 +26,7 @@ const HomePage = () => {
         <div className="bg-grey-lighter shadow-sm h-16 fixed pin-b md:relative md:h-swt z-10 w-full md:w-64">
           <NoteList />
         </div>
-        <div className="main-content flex-1 bg-grey-lightest pb-24 md:pb-5">
+        <div className="main-content flex-1 bg-grey-lightest pb-24 md:pb-5" style={{ overflowY: 'scroll'}}>
           <Note />
         </div>
       </div>
