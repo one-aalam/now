@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { FolderContext } from '../contexts/FolderContext';
 import NoteCard from './NoteCard';
+import Edit from 'react-feather/dist/icons/edit';
 
 
 export const NoteList = () => {
@@ -8,11 +9,16 @@ export const NoteList = () => {
 
   return (
     <>
-    <div className="h-12">
+    <div className="h-12 bg-green-lighter">
       <button
-        className="bg-teal-dark hover:bg-teal text-white font-bold py-2 px-4 rounded"
-        onClick={() => addNote({ title: 'New Note', content: 'adadadafafaf'})}>
-      + new note
+        className="mt-2 ml-2 bg-green-dark hover:bg-green text-white font-semibold py-1 px-4 border border-grey-light rounded shadow"
+        onClick={() => {
+          addNote({
+            title: '',
+            content: 'nothing beats paper!'
+          })
+        }}>
+      <Edit height={16} />
       </button>
     </div>
     {

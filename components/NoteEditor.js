@@ -116,7 +116,7 @@ const Note = ({ children }) => {
   return (content ?
     <section className="note__panel" id="note__panel">
       <div>
-        <div className="px-6 py-4" >
+        <div className="px-20 py-4" >
           {
             syncing &&
             <em>Syncing with cloud</em>
@@ -125,7 +125,7 @@ const Note = ({ children }) => {
             <input
               style={{ outline: 0, background: 'none', width: '100%' }}
               placeholder="What're you upto?"
-              className="editable"
+              className="editable text-grey-black"
               value={content.title}
               onChange={handleTitleChange}
               onBlur={syncNote}
@@ -139,7 +139,7 @@ const Note = ({ children }) => {
           <ContentEditable
             innerRef={noteRef}
             style={{ outline: 0 }}
-            className="editable"
+            className="editable text-grey-darkest"
             html={content.content}
             onChange={handleChange}
             onMouseUp={handleTextSelection}
