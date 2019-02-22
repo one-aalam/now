@@ -6,7 +6,9 @@ import BookOpen from 'react-feather/dist/icons/book-open';
 
 
 export const NoteList = () => {
-  const { folders, loading, selected, selectedNote, onSelectNote, addNote } = useContext(FolderContext);
+  const { folders, loading, selected,
+          selectedNote, onSelectNote,
+          addNote, deleteNote, toggleFavNote } = useContext(FolderContext);
 
   return (
     <>
@@ -41,7 +43,9 @@ export const NoteList = () => {
               key={key}
               note={folders[selected].notes[key]}
               selected={selectedNote === key}
-              onClick={() => onSelectNote(key)}
+              onSelect={() => onSelectNote(key)}
+              onStar={(note) => toggleFavNote(key, note)}
+              onTrash={() => deleteNote(key)}
               />
             )
           }

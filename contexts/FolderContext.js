@@ -31,6 +31,12 @@ const FolderProvider = ({ children }) => {
   const createFolder = (payload) => db.createFolder(payload);
   const addNote = (payload) => db.createNoteForFolder(selected, payload);
   const updateNote = (payload) => db.updateNoteForFolder(selected, selectedNote, payload);
+  const deleteNote = (key) => db.deleteNoteForFolder(selected, key);
+
+  const toggleFavNote = (key, payload) => db.updateNoteForFolder(selected, key, {
+    ...payload,
+    isFavorite: payload.isFavorite ? !payload.isFavorite : true
+  });
 
   useEffect(() => {
     setLoading(true)
@@ -57,6 +63,8 @@ const FolderProvider = ({ children }) => {
       onSelectNote,
       addNote,
       updateNote,
+      deleteNote,
+      toggleFavNote,
       createFolder
     }}>
       { children }

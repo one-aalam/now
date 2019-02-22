@@ -125,9 +125,9 @@ const Note = ({ children }) => {
           }
           <h1 className="mb-2 mt-10 font-extrabold">
             <input
-              style={{ outline: 0, background: 'none', width: '100%' }}
+              style={{ outline: 0, width: '100%' }}
               placeholder="What're you upto?"
-              className="editable text-grey-black"
+              className="editable text-grey-black bg-green-lightest ptb-2"
               value={content.title}
               onChange={handleTitleChange}
               onBlur={syncNote}
@@ -135,7 +135,7 @@ const Note = ({ children }) => {
           </h1>
           { !content.title &&
             <div className="text-sm text-grey mb-6">
-              Type the title and hit [tab] for jotting down(or update) your thoughts...
+              Type the title and hit [tab] to jot down(or update) the note...
             </div>
           }
           <ContentEditable
