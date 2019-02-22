@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import { format } from 'timeago.js';
 import Trash from 'react-feather/dist/icons/trash-2';
 import Star from 'react-feather/dist/icons/star';
+import Clock from 'react-feather/dist/icons/clock';
 
 
 const NoteCard = ({ selected, note, onSelect, onStar, onTrash }) => {
@@ -29,6 +31,7 @@ const NoteCard = ({ selected, note, onSelect, onStar, onTrash }) => {
           <div className="font-bold text-xl mb-2">{ note.title }</div>
           <hr/>
           <p className="text-grey-darker text-base" dangerouslySetInnerHTML={{ __html: note.content }}></p>
+          { note.updatedAt && <div className="text-sm text-grey"><Clock size={12} />&nbsp;{format(note.updatedAt, 'en_US')}</div> }
         </div>
       </div>
     </li>
