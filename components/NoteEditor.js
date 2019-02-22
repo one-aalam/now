@@ -1,7 +1,10 @@
 import { useContext, useEffect, useState, createRef } from 'react';
-import { Manager, Reference, Popper } from 'react-popper';
+import { Popper } from 'react-popper';
 import ContentEditable from 'react-contenteditable';
 import sanitizeHtml from 'sanitize-html';
+
+import useInterval from '../hooks/useInterval';
+
 import { FolderContext } from '../contexts/FolderContext';
 import NoteEditorAssistant from './NoteEditorAssistant';
 
@@ -64,6 +67,9 @@ const Note = ({ children }) => {
   const { folders, loading, selected, selectedNote, updateNote } = useContext(FolderContext);
   const note = !loading && folders && selected && selectedNote ? folders[selected].notes[selectedNote] : null;
   const [ content, setContent ] = useState(null);
+  const [ canSync, setCanSync ] = useState(true);
+  const [ syncing, setSyncing ] = useState(false);
+  const [ delay, setDelay ] = useState(3000);
   const [ rect, setRect, handleTextSelection, virtualReferenceElement ] = useRect(POPPER_DEFAULT_RECT); //useState(POPPER_DEFAULT_RECT);
 
   const handleChange = evt => {
@@ -77,6 +83,10 @@ const Note = ({ children }) => {
     setContent({ ...content, content: sanitizeHtml(evt.target.value, SANITIZE_CONF) });
   }
 
+  useInterval(function scheduleSyncNote(){
+    // syncNote();
+  }.bind(this), canSync ? delay : null);
+
   useEffect(() => {
     if (note) {
       setContent({
@@ -85,41 +95,57 @@ const Note = ({ children }) => {
       })
       setRect(POPPER_DEFAULT_RECT);
     }
+    return () => {
+      setCanSync(false);
+    }
   }, [ note ])
 
   useEffect(() => {
     noteRef = createRef();
   })
 
-  const persist = evt => {
-    evt.preventDefault();
-    console.log({ ...content, content: sanitizeHtml(content.content, SANITIZE_CONF)});
-    updateNote({ ...content, content: sanitizeHtml(content.content, SANITIZE_CONF)} );
+  const syncNote = evt => {
+    if(evt) evt.preventDefault();
+    setSyncing(true);
+    updateNote({ ...content, content: sanitizeHtml(content.content, SANITIZE_CONF)}).then(() => {
+      setSyncing(false);
+    });
     return false;
   }
 
   return (content ?
     <section className="note__panel" id="note__panel">
       <div>
-        <div className="px-6 py-4">
-          <h1 className="font-bold text-xxl mb-2" onClick={persist}>
+        <div className="px-6 py-4" >
+          {
+            syncing &&
+            <em>Syncing with cloud</em>
+          }
+          <h1 className="mb-2 mt-10 font-extrabold">
             <input
               style={{ outline: 0, background: 'none', width: '100%' }}
+              placeholder="What're you upto?"
               className="editable"
               value={content.title}
               onChange={handleTitleChange}
-              onBlur={persist}
+              onBlur={syncNote}
             />
           </h1>
-            <ContentEditable
-              innerRef={noteRef}
-              style={{ outline: 0 }}
-              className="editable"
-              html={content.content}
-              onChange={handleChange}
-              onMouseUp={handleTextSelection}
-              onBlur={persist}
-            />
+          { !content.title &&
+            <div className="text-sm text-grey mb-6">
+              Type the title and hit [tab] for jotting down(or update) your thoughts...
+            </div>
+          }
+          <ContentEditable
+            innerRef={noteRef}
+            style={{ outline: 0 }}
+            className="editable"
+            html={content.content}
+            onChange={handleChange}
+            onMouseUp={handleTextSelection}
+            onKeyUp={handleTextSelection}
+            onKeyDown={handleTextSelection}
+          />
         </div>
         {/* Note Editor - Assistant */}
         <Popper referenceElement={virtualReferenceElement} placement="top" modifiers={{offset: { offset: '0,5' }}}>
