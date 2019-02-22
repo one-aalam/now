@@ -8,7 +8,7 @@ import LayoutPrivate from '../components/LayoutPrivate';
 import { FolderProvider } from '../contexts/FolderContext';
 import { FolderList } from '../components/FolderList';
 import { NoteList } from '../components/NoteList';
-import Note from '../components/Note';
+import NoteEditor from '../components/NoteEditor';
 
 const authCondition = (authUser) => !!authUser;
 
@@ -20,14 +20,13 @@ const HomePage = () => {
       <FolderProvider>
       <div className="flex flex-col md:flex-row">
         <div className="bg-black text-white shadow-lg h-16 fixed pin-b md:relative md:h-swt z-10 w-full md:w-48">
-          {/* { user && (user.displayName ? user.displayName : user.email ) } */}
-            <FolderList />
+          <FolderList />
         </div>
         <div className="bg-grey-lighter shadow-sm h-16 fixed pin-b md:relative md:h-swt z-10 w-full md:w-64">
           <NoteList />
         </div>
         <div className="main-content flex-1 bg-grey-lightest pb-24 md:pb-5" style={{ overflowY: 'scroll'}}>
-          <Note />
+          <NoteEditor />
         </div>
       </div>
       </FolderProvider>
