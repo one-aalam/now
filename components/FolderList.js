@@ -24,7 +24,7 @@ export const FolderList = () => {
     {
     loading ? <div>loading notebooks...</div> :
     folders ?
-    <ul className="folder__list list-reset h-cwt">
+    <ul className="folder__list list-reset h-cwt" style={{ overflowY: 'scroll'}}>
       { Object.keys(folders).map( key =>
           <li
             className={`folder__item w-full p-2 pl-4 cursor-pointer shadow-inner hover:bg-green-lighter hover:text-green-dark ${ selected === key && 'bg-green-light'}`}
@@ -37,7 +37,7 @@ export const FolderList = () => {
         )
       }
     </ul> :
-    <div> No groups found! </div>
+    <div className="folder__list list-reset h-cwt"> No groups found! </div>
     }
     </>
   );

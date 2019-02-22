@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { FolderContext } from '../contexts/FolderContext';
 import NoteCard from './NoteCard';
 import Edit from 'react-feather/dist/icons/edit';
+import BookOpen from 'react-feather/dist/icons/book-open';
 
 
 export const NoteList = () => {
@@ -20,6 +21,9 @@ export const NoteList = () => {
         }}>
       <Edit height={16} />
       </button>
+      <span className="text-green-light float-right mt-3 mr-4">
+        { (folders && selected && folders[selected].notes) && ` ${Object.keys(folders[selected].notes).length} notes` }
+      </span>
     </div>
     {
       loading ?
@@ -43,8 +47,24 @@ export const NoteList = () => {
           }
         </ul>
       </div> :
-    // @TODO: Add empty state component
-      <div> No notes found! </div>
+      <div className="notes__panel h-cwt flex items-center justify-center">
+        <p className="p-10 text-center text-grey-dark">
+          <BookOpen size={64}/>
+          <br/>
+          <br/>
+          You haven't put anything in <strong>{folders[selected] ? folders[selected].title : 'this notebook '}</strong> yet!
+          <br/><br/>
+          <a href="" className="text-green text-lg" onClick={(evt) => {
+            evt.preventDefault()
+            addNote({
+              title: '',
+              content: 'nothing beats paper!'
+            })
+          }}>
+          + add a new note
+          </a>
+        </p>
+      </div>
     }
     </>
   );

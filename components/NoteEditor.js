@@ -2,6 +2,8 @@ import { useContext, useEffect, useState, createRef } from 'react';
 import { Popper } from 'react-popper';
 import ContentEditable from 'react-contenteditable';
 import sanitizeHtml from 'sanitize-html';
+import Feather from 'react-feather/dist/icons/feather';
+
 
 import useInterval from '../hooks/useInterval';
 
@@ -160,7 +162,14 @@ const Note = ({ children }) => {
       </div>
       {/* { children } */}
     </section>
-    : <div> Please select a folder and a note first </div>
+    : <div className="flex items-center justify-center md:h-swt">
+        <p className="p-10 text-center text-grey-dark">
+          <Feather size={64}/>
+          <br/>
+          <br/>
+          You haven't selected a note yet! Please select one, before composing the masterpiece of your thoughts...
+        </p>
+      </div>
   );
 }
 
