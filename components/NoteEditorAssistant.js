@@ -1,15 +1,37 @@
+import Bold from 'react-feather/dist/icons/bold';
+import Italic from 'react-feather/dist/icons/italic';
+import Underline from 'react-feather/dist/icons/underline';
+import ZapOff from 'react-feather/dist/icons/zap-off';
+import List from 'react-feather/dist/icons/list';
+
 const NoteEditorAssistant = () => (
-  <>
-    <NoteEditorCommandButton cmd="italic" />
-    <NoteEditorCommandButton cmd="bold" />
+  <div className="flex flex-row">
+    <NoteEditorCommandButton cmd="bold">
+      <Bold />
+    </NoteEditorCommandButton>
+    &nbsp;
+    <NoteEditorCommandButton cmd="italic">
+      <Italic />
+    </NoteEditorCommandButton>
+    &nbsp;
+    <NoteEditorCommandButton cmd="underline">
+      <Underline/>
+    </NoteEditorCommandButton>
+    &nbsp;
+    <NoteEditorCommandButton cmd="strikeThrough">
+      <ZapOff/>
+    </NoteEditorCommandButton>
+    &nbsp;&nbsp;&nbsp;
+    <NoteEditorCommandButton cmd="insertUnorderedList">
+      <List/>
+    </NoteEditorCommandButton>
     <style global jsx>{`
       .pop {
         background-image: linear-gradient(to bottom,rgba(49,49,47,.99),#262625);
         background-repeat: repeat-x;
         border-radius: 5px;
-        padding: 0 10px;
+        padding: 4px 10px;
         color: white;
-        line-height: 44px;
         display: inline-block;
       }
       .x-arrow {
@@ -30,32 +52,30 @@ const NoteEditorAssistant = () => (
       }
     `}
     </style>
-  </>
+  </div>
 )
 
-const NoteEditorCommandButton = ({ cmd, arg, name }) => {
+const NoteEditorCommandButton = ({ cmd, arg, children }) => {
   return (
-    <button
-      className="text-white"
+    <div
+      className="flex-1 stroke-current"
       key={cmd}
       onMouseDown={evt => {
         evt.preventDefault(); // Avoids loosing focus from the editable area
         document.execCommand(cmd, false, arg); // Send the command to the browser
       }}
     >
-      {name || cmd}
-    </button>
+      { children }
+    </div>
   );
 }
 
 export default NoteEditorAssistant;
 
-{/* <CmdButton cmd="strikeThrough" />
-<CmdButton cmd="underline" />
-<CmdButton cmd="insertImage" />
+// @TODO: future: extended command list
+{/* <CmdButton cmd="insertImage" />
 <CmdButton cmd="foreColor" />
 <CmdButton cmd="hiliteColor" />
 <CmdButton cmd="createLink" arg="http://google.in"/>
 <CmdButton cmd="insertOrderedList" name="ol" />
-<CmdButton cmd="insertUnorderedList" name="ul" />
 <CmdButton cmd="formatBlock" arg="h1" name="h1" /> */}
