@@ -18,6 +18,14 @@ The app currently just works in development with your own firebase configs
 - [ ] Use *cloud firestore* for storage
 - [ ] Use *cloud functions* for allowing notes download
 - [ ] Make multi-user/multi-tenant
+- [ ] Support Themes
+- [ ] Add image support
+- [ ] Add checklist support
+- [ ] Support colored notes
+- [ ] Allow note download
+- [ ] Improve App Bar
+- [ ] Add user profile page
+- [ ] Add settings page
 
 *Re-factor! Re-factor! Re-factor! (continuos goal)*
 
