@@ -1,7 +1,20 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import Link from 'next/link';
+import { Manager, Reference, Popper } from 'react-popper';
+
 import * as routes from '../constants/routes';
 import { AuthUserContext } from '../contexts/AuthUserContext';
+import { ThemeContext } from '../contexts/ThemeContext';
+
+import { useRect, POPPER_DEFAULT_RECT } from '../hooks/useRect';
+
+import User from 'react-feather/dist/icons/user';
+import Settings from 'react-feather/dist/icons/settings';
+import Bell from 'react-feather/dist/icons/bell';
+import LogOut from 'react-feather/dist/icons/log-out';
+import Droplet from 'react-feather/dist/icons/droplet';
+
+
 import { auth } from '../libs/firebase';
 
 export const Navigation = () => {
@@ -12,28 +25,86 @@ export const Navigation = () => {
   );
 }
 
-const NavigationAuth = ({ user }) => (
+const NavigationAuth = ({ user }) => {
+  const [ isUserMenuVisible, setIsUserMenuVisible ] = useState(false)
+  const [ rect, setRect, virtualReferenceElement ] = useRect(POPPER_DEFAULT_RECT);
+  const { toggleTheme } = useContext(ThemeContext);
+
+
+  return (
   <ul className="list-reset flex">
     <li className="mr-6">
-      Hi, { user.displayName }
+      <a className="text-blue hover:text-blue-darker" href="#" onClick={toggleTheme}>
+        <Droplet/>
+      </a>
     </li>
     <li className="mr-6">
-      <Link href={routes.LANDING}>
-        <a className="text-blue hover:text-blue-darker">landing</a>
+      <Link href={routes.SETTINGS}>
+        <a className="text-blue hover:text-blue-darker"><Settings/></a>
       </Link>
     </li>
     <li className="mr-6">
-      <Link href={routes.HOME}>
-        <a className="text-blue hover:text-blue-darker">home</a>
+      <Link href="#">
+        <a className="text-blue hover:text-blue-darker"><Bell/></a>
       </Link>
     </li>
-    <li className="mr-6">
-      <a className="text-grey-light hover:text-blue-darker" href="#" onClick={() => {
+    {/* <li className="mr-6">
+      <a className="hover:text-blue-darker" href="#" onClick={() => {
         auth.signOut();
-      }}>log out</a>
+      }}><LogOut/></a>
+    </li> */}
+    <li className="mr-6">
+      <Manager>
+        <Reference>
+          {({ ref }) => (
+            <span onClick={() => {
+              setIsUserMenuVisible(!isUserMenuVisible)
+            }}><User/> Hi, { user.displayName || 'User' }</span>
+          )}
+        </Reference>
+        <Popper placement="bottom" modifiers={{offset: { offset: '0,5' }}} style={{position: 'relative'}}>
+          {({ ref, style, placement, arrowProps }) => (
+            isUserMenuVisible ?
+            <div className="pop" ref={ref} data-placement={placement} style={{position: 'absolute'}}>
+              <div className="flex-col">
+                <span onClick={auth.signOut}><LogOut /> Log out</span>
+              </div>
+              <div className="x-arrow" ref={arrowProps.ref} style={arrowProps.style} />
+            </div> : null
+          )}
+        </Popper>
+        <style global jsx>{`
+          .pop {
+            background-image: linear-gradient(to bottom,rgba(49,49,47,.99),#262625);
+            background-repeat: repeat-x;
+            border-radius: 5px;
+            padding: 4px 10px;
+            color: white;
+            margin-right: 10px;
+          }
+          .x-arrow {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            background-color: #262625;
+            transform: rotate(45deg);
+            z-index: -1;
+          }
+          [data-placement="top"] .x-arrow {
+            margin-bottom: -7px;
+            bottom: 0;
+          }
+          [data-placement="bottom"] .x-arrow {
+            margin-top: -7px;
+            top: 0;
+          }
+        `}
+        </style>
+      </Manager>
     </li>
   </ul>
 )
+}
 
 const NavigationAuthToolbar = ({ user }) => (
     <nav className="bg-black pt-2 md:pt-1 pb-1 px-1 mt-0 h-auto fixed w-full z-20 pin-t">
@@ -81,7 +152,7 @@ const NavigationAuthToolbar = ({ user }) => (
 const NavigationNonAuth = () => (
   <ul className="list-reset flex">
     <li className="mr-6">
-      <Link href={routes.LANDING}>
+      <Link href={routes.HOME}>
         <a className="text-blue hover:text-blue-darker">landing</a>
       </Link>
     </li>

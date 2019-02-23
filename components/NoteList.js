@@ -12,7 +12,7 @@ export const NoteList = () => {
 
   return (
     <>
-    <div className="h-12 bg-green-lighter">
+    <div className="h-12 bg-green-lightest">
       <button
         className="mt-2 ml-2 bg-green-dark hover:bg-green text-white font-semibold py-1 px-4 border border-grey-light rounded shadow"
         onClick={() => {
